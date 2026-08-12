@@ -1,0 +1,31 @@
+@utility content-container {
+  width: min(calc(100% - 2rem), 1180px);
+  margin-inline: auto;
+}
+
+@utility section-spacing {
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+@utility section-spacing-sm {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+@utility scrollbar-hidden {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility hero-viewport {
+  min-height: max(
+    560px,
+    calc(100svh - 92px)
+  );
+}

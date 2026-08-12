@@ -1,8 +1,9 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'SEDALP - Servicio Departamental de Autonomías de La Paz',
+  title: 'Inicio',
+
   description:
-    'Servicio Departamental de Autonomías de La Paz.',
+    'Servicio Departamental de Autonomías de La Paz. Fortalecemos la gestión autonómica de los gobiernos autónomos del departamento de La Paz.',
 })
 </script>
 
@@ -11,13 +12,5 @@ useSeoMeta({
     <HomeHero />
 
     <HomeInstitutionalPillars />
-
-    <HomeNews />
-
-    <HomeServices />
-
-    <HomeResults />
-
-    <HomeInterestLinks />
   </div>
 </template>

@@ -1,7 +1,13 @@
 <template>
-  <footer>
-    <div class="container">
-      FOOTER SEDALP
+    <div>
+
     </div>
-  </footer>
 </template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>

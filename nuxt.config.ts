@@ -1,6 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
-  modules: ["@nuxt/fonts"],
+  modules: ["@nuxt/fonts", "@nuxt/image"],
+
+  css: ["~/assets/css/main.css"],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   components: [
     {
@@ -8,8 +16,6 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-
-  css: ["~/assets/css/tokens.css", "~/assets/css/main.css"],
 
   fonts: {
     families: [
@@ -21,20 +27,27 @@ export default defineNuxtConfig({
     ],
   },
 
-    app: {
+  image: {
+    quality: 85,
+    format: ["webp"],
+  },
+
+  app: {
     head: {
       htmlAttrs: {
-        lang: 'es',
+        lang: "es",
       },
+
+      titleTemplate: "%s | SEDALP",
+
+      meta: [
+        {
+          name: "theme-color",
+          content: "#067132",
+        },
+      ],
     },
   },
-
-  runtimeConfig: {
-    public: {
-      apiBase: "",
-    },
-  },
-
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 });

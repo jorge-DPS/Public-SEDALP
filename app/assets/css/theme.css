@@ -1,0 +1,66 @@
+@theme {
+  /* =====================================================
+     IDENTIDAD SEDALP
+  ===================================================== */
+
+  --color-sedalp-gray: #706f6e;
+  --color-sedalp-yellow: #efc800;
+  --color-sedalp-red: #b12517;
+  --color-sedalp-green: #067132;
+
+  --color-sedalp-green-light: #0a8840;
+  --color-sedalp-green-dark: #055b29;
+  --color-sedalp-green-darker: #03461f;
+
+  /* =====================================================
+     SUPERFICIES
+  ===================================================== */
+
+  --color-page: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f9f8;
+  --color-surface-green: #f2f7f4;
+
+  /* =====================================================
+     TEXTO
+  ===================================================== */
+
+  --color-heading: #202522;
+  --color-body: #555d58;
+  --color-muted: #7b827e;
+  --color-border-soft: #e5e9e7;
+
+  /* =====================================================
+     TIPOGRAFÍA
+  ===================================================== */
+
+  --font-sans:
+    "Montserrat",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  /* =====================================================
+     SOMBRAS
+  ===================================================== */
+
+  --shadow-soft:
+    0 4px 20px rgb(15 42 28 / 0.06);
+
+  --shadow-card:
+    0 8px 30px rgb(15 42 28 / 0.08);
+
+  --shadow-card-hover:
+    0 18px 45px rgb(15 42 28 / 0.12);
+
+  --shadow-header:
+    0 10px 35px rgb(15 42 28 / 0.08);
+
+  /* =====================================================
+     RADIOS
+  ===================================================== */
+
+  --radius-card: 0.875rem;
+  --radius-section: 1.125rem;
+  --radius-button: 0.625rem;
+}
