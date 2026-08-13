@@ -49,5 +49,9 @@ export default defineNuxtConfig({
     },
   },
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+  // Vue DevTools puede dejar dependencias optimizadas obsoletas en Vite.
+  // Se habilita solamente cuando se solicita de forma explícita.
+  devtools: {
+    enabled: process.env.NUXT_DEVTOOLS === "true",
+  },
 });

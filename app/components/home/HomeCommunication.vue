@@ -1,59 +1,83 @@
 <script setup lang="ts">
 import { mockNews } from "~/data/news";
-import NewsCard from "~/components/news/NewCard.vue";
 
-const featuredNews = mockNews.slice(0, 3);
+const latestNews = computed(() => {
+  return [...mockNews]
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    )
+    .slice(0, 3);
+});
+
+const { selectedNews, openNews, closeNews } = useNewsModal(latestNews);
 </script>
 
 <template>
   <section
-    id="noticias"
-    class="section-spacing bg-surface-soft"
-    aria-labelledby="home-news-title"
+    id="comunicacion"
+    class="section-spacing scroll-mt-24 bg-surface-soft"
+    aria-labelledby="communication-title"
   >
     <AppContainer>
-      <!-- Header sección -->
+      <!-- Cabecera -->
 
       <div
-        class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
+        class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
       >
         <div>
-          <SectionHeading
-            title="Noticias"
-            description="Conoce las actividades, acciones institucionales y principales novedades del Servicio Departamental de Autonomías de La Paz."
-          />
+          <p
+            class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-sedalp-green"
+          >
+            Actualidad institucional
+          </p>
+
+          <h2
+            id="communication-title"
+            class="text-3xl font-extrabold tracking-[-0.04em] text-heading sm:text-4xl"
+          >
+            Comunicación
+          </h2>
+
+          <p class="mt-4 max-w-2xl text-sm leading-7 text-body sm:text-base">
+            Conoce nuestras últimas actividades, noticias y acciones
+            institucionales desarrolladas en el departamento de La Paz.
+          </p>
         </div>
 
         <NuxtLink
           to="/noticias"
-          class="group/link inline-flex shrink-0 items-center gap-2 text-sm font-bold text-sedalp-green transition-colors hover:text-sedalp-green-dark"
+          class="group inline-flex shrink-0 items-center gap-2 text-sm font-bold text-sedalp-green transition-colors hover:text-sedalp-green-dark"
         >
-          Ver todas las noticias
+          Ver más noticias
 
-          <svg
-            viewBox="0 0 24 24"
-            class="size-4 transition-transform duration-200 group-hover/link:translate-x-1"
-            aria-hidden="true"
+          <span
+            class="transition-transform duration-200 group-hover:translate-x-1"
           >
-            <path
-              d="M5 12h14M13 6l6 6-6 6"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+            →
+          </span>
         </NuxtLink>
       </div>
 
-      <!-- Cards -->
+      <!-- 3 últimas -->
 
-      <div
-        class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
-      >
-        <NewsCard v-for="news in featuredNews" :key="news.id" :news="news" />
+      <div class="mt-10">
+        <NewsGrid :items="latestNews" @open="openNews" />
+      </div>
+
+      <!-- CTA inferior -->
+
+      <div class="mt-10 flex justify-center">
+        <BaseButton to="/noticias" variant="outline">
+          Ver más noticias
+
+          <span aria-hidden="true"> → </span>
+        </BaseButton>
       </div>
     </AppContainer>
+
+    <!-- Mismo modal -->
+
+    <NewsModal v-if="selectedNews" :news="selectedNews" @close="closeNews" />
   </section>
 </template>

@@ -1,113 +1,158 @@
 <script setup lang="ts">
-import type { NewsItem } from "~/types/news";
+import type {
+  NewsItem,
+} from '~/types/news'
 
 interface Props {
-  news: NewsItem;
+  news: NewsItem
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  close: [];
-}>();
+  close: []
+}>()
 
-const closeButton = ref<HTMLButtonElement | null>(null);
+const dialog = ref<HTMLElement | null>(null)
+const closeButton =
+  ref<HTMLButtonElement | null>(null)
 
-let previousActiveElement: HTMLElement | null = null;
+let previousFocus:
+  HTMLElement | null = null
 
-const modalTitleId = computed(() => `news-modal-title-${props.news.id}`);
+const titleId = computed(
+  () => `news-title-${props.news.id}`,
+)
+
+const descriptionId = computed(
+  () => `news-description-${props.news.id}`,
+)
 
 const close = () => {
-  emit("close");
-};
+  emit('close')
+}
 
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === "Escape") {
-    close();
+const handleKeydown = (
+  event: KeyboardEvent,
+) => {
+  if (event.key === 'Escape') {
+    close()
+
+    return
   }
-};
+
+  if (
+    event.key !== 'Tab'
+    || !dialog.value
+  ) {
+    return
+  }
+
+  const focusable =
+    dialog.value.querySelectorAll<HTMLElement>(
+      [
+        'button:not([disabled])',
+        'a[href]',
+        'iframe',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(','),
+    )
+
+  if (!focusable.length) {
+    return
+  }
+
+  const first = focusable[0]
+  const last =
+    focusable[focusable.length - 1]
+
+  if (
+    event.shiftKey
+    && document.activeElement === first
+  ) {
+    event.preventDefault()
+    last?.focus()
+
+    return
+  }
+
+  if (
+    !event.shiftKey
+    && document.activeElement === last
+  ) {
+    event.preventDefault()
+    first?.focus()
+  }
+}
 
 onMounted(async () => {
-  previousActiveElement = document.activeElement as HTMLElement | null;
+  previousFocus = document.activeElement as HTMLElement | null
 
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow =
+    'hidden'
 
-  window.addEventListener("keydown", handleKeydown);
+  window.addEventListener(
+    'keydown',
+    handleKeydown,
+  )
 
-  await nextTick();
+  await nextTick()
 
-  closeButton.value?.focus();
-});
+  closeButton.value?.focus()
+})
 
 onBeforeUnmount(() => {
-  document.body.style.overflow = "";
+  document.body.style.overflow = ''
 
-  window.removeEventListener("keydown", handleKeydown);
+  window.removeEventListener(
+    'keydown',
+    handleKeydown,
+  )
 
-  previousActiveElement?.focus();
-});
+  previousFocus?.focus()
+})
 </script>
 
 <template>
-  <Teleport to="#teleports">
+  <Teleport to="body">
     <div
-      class="fixed inset-0 z-[2000] flex items-center justify-center overflow-y-auto bg-black/60 px-4 py-8 backdrop-blur-sm sm:px-6"
+      class="fixed inset-0 z-[2000] overflow-y-auto bg-black/60 px-4 py-6 backdrop-blur-sm sm:px-6 sm:py-10"
       @click.self="close"
     >
       <article
+        ref="dialog"
         role="dialog"
         aria-modal="true"
-        :aria-labelledby="modalTitleId"
-        class="relative max-h-[90svh] w-full max-w-4xl overflow-y-auto overflow-x-hidden rounded-[1.25rem] bg-white shadow-2xl"
+        :aria-labelledby="titleId"
+        :aria-describedby="descriptionId"
+        class="relative mx-auto w-full max-w-5xl overflow-hidden rounded-[1.25rem] bg-white shadow-2xl"
       >
         <!-- Cerrar -->
 
         <button
           ref="closeButton"
           type="button"
-          class="absolute right-4 top-4 z-20 flex size-11 items-center justify-center rounded-full bg-white/95 text-heading shadow-md backdrop-blur transition-all duration-200 hover:rotate-90 hover:bg-sedalp-green hover:text-white"
+          class="absolute right-4 top-4 z-30 flex size-11 items-center justify-center rounded-full bg-white/95 text-heading shadow-md backdrop-blur transition-all duration-200 hover:rotate-90 hover:bg-sedalp-green hover:text-white"
           aria-label="Cerrar noticia"
           @click="close"
         >
-          <svg viewBox="0 0 24 24" class="size-5" aria-hidden="true">
-            <path
-              d="M6 6l12 12M18 6 6 18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            />
-          </svg>
+          ✕
         </button>
 
-        <!-- Imagen -->
+        <!-- Galería -->
 
-        <div class="relative aspect-[16/7] overflow-hidden bg-surface-soft">
-          <NuxtImg
-            :src="news.coverImage"
-            :alt="news.coverImageAlt"
-            width="1200"
-            height="525"
-            sizes="100vw lg:900px"
-            quality="85"
-            format="webp"
-            class="h-full w-full object-cover"
-          />
-
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent"
-            aria-hidden="true"
-          />
-        </div>
+        <NewsImageCarousel :key="news.id" :images="news.images" variant="modal" />
 
         <!-- Contenido -->
 
-        <div class="px-6 py-8 sm:px-10 sm:py-10 lg:px-12">
+        <div class="px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
+          <!-- Fecha -->
+
           <div class="flex flex-wrap items-center gap-3">
             <span
               class="rounded-full bg-sedalp-yellow px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-sedalp-green-darker"
             >
-              Noticias
+              Comunicación
             </span>
 
             <time
@@ -118,20 +163,36 @@ onBeforeUnmount(() => {
             </time>
           </div>
 
+          <!-- Título -->
+
           <h2
-            :id="modalTitleId"
-            class="mt-5 max-w-3xl text-balance text-2xl font-extrabold leading-tight tracking-[-0.035em] text-heading sm:text-3xl lg:text-[2.25rem]"
+            :id="titleId"
+            class="mt-5 max-w-4xl text-balance text-2xl font-extrabold leading-tight tracking-[-0.04em] text-heading sm:text-3xl lg:text-4xl"
           >
             {{ news.title }}
           </h2>
 
+          <!-- Subtítulo -->
+
           <p
-            class="mt-5 border-l-[3px] border-sedalp-yellow pl-5 text-base font-medium leading-7 text-body"
+            v-if="news.subtitle"
+            class="mt-4 max-w-3xl text-base font-semibold leading-7 text-sedalp-green"
           >
-            {{ news.excerpt }}
+            {{ news.subtitle }}
           </p>
 
-          <div class="mt-8 space-y-5">
+          <!-- Descripción -->
+
+          <p
+            :id="descriptionId"
+            class="mt-6 max-w-4xl border-l-[3px] border-sedalp-yellow pl-5 text-[0.95rem] font-medium leading-8 text-body"
+          >
+            {{ news.description }}
+          </p>
+
+          <!-- Contenido -->
+
+          <div class="mt-8 max-w-4xl space-y-5">
             <p
               v-for="(paragraph, index) in news.content"
               :key="index"
@@ -141,40 +202,13 @@ onBeforeUnmount(() => {
             </p>
           </div>
 
-          <!-- Video -->
+          <!-- Videos -->
 
           <div
-            v-if="news.videos[0]"
-            class="mt-10 flex flex-col gap-4 rounded-xl border border-red-100 bg-red-50/60 p-5 sm:flex-row sm:items-center sm:justify-between"
+            v-if="news.videos.length"
+            class="mt-12 border-t border-border-soft pt-10"
           >
-            <div>
-              <p class="text-sm font-bold text-heading">
-                Contenido audiovisual
-              </p>
-
-              <p class="mt-1 text-xs leading-5 text-muted">
-                Esta noticia cuenta con material audiovisual disponible en
-                YouTube.
-              </p>
-            </div>
-
-            <a
-              :href="news.videos[0].url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-red-600 px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-700"
-            >
-              <svg viewBox="0 0 24 24" class="size-5" aria-hidden="true">
-                <path
-                  d="M21.2 7.1a2.6 2.6 0 0 0-1.8-1.9C17.8 4.8 12 4.8 12 4.8s-5.8 0-7.4.4a2.6 2.6 0 0 0-1.8 1.9A27 27 0 0 0 2.4 12a27 27 0 0 0 .4 4.9 2.6 2.6 0 0 0 1.8 1.9c1.6.4 7.4.4 7.4.4s5.8 0 7.4-.4a2.6 2.6 0 0 0 1.8-1.9 27 27 0 0 0 .4-4.9 27 27 0 0 0-.4-4.9Z"
-                  fill="currentColor"
-                />
-
-                <path d="m10 15.4 5-3.4-5-3.4v6.8Z" fill="white" />
-              </svg>
-
-              Ver en YouTube
-            </a>
+            <NewsVideoList :videos="news.videos" />
           </div>
         </div>
       </article>

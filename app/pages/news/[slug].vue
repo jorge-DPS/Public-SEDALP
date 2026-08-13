@@ -6,10 +6,10 @@ definePageMeta({
 });
 
 const route = useRoute();
-const slug = computed(() => String(route.params.slug ?? ""));
-const news = computed(() => mockNews.find((item) => item.slug === slug.value));
+const slug = String(route.params.slug ?? "");
+const news = mockNews.find((item) => item.slug === slug);
 
-if (!news.value) {
+if (!news) {
   throw createError({
     statusCode: 404,
     statusMessage: "Noticia no encontrada",
@@ -17,14 +17,14 @@ if (!news.value) {
 }
 
 useSeoMeta({
-  title: () => news.value?.title ?? "Noticia",
-  description: () => news.value?.excerpt ?? "",
-  ogImage: () => news.value?.coverImage,
+  title: news.title,
+  description: news.excerpt,
+  ogImage: news.images[0]?.url,
 });
 </script>
 
 <template>
-  <main v-if="news" class="section-spacing bg-white">
+  <main class="section-spacing bg-white">
     <AppContainer>
       <NuxtLink
         to="/noticias"
@@ -38,26 +38,38 @@ useSeoMeta({
         <time :datetime="news.publishedAt" class="text-sm font-semibold text-muted">
           {{ formatDate(news.publishedAt) }}
         </time>
+
         <h1 class="mt-3 text-3xl font-extrabold leading-tight tracking-[-0.04em] text-heading sm:text-5xl">
           {{ news.title }}
         </h1>
-        <p class="mt-5 border-l-4 border-sedalp-yellow pl-5 text-lg leading-8 text-body">
-          {{ news.excerpt }}
+
+        <p
+          v-if="news.subtitle"
+          class="mt-4 text-base font-semibold leading-7 text-sedalp-green"
+        >
+          {{ news.subtitle }}
         </p>
 
-        <NuxtImg
-          :src="news.coverImage"
-          :alt="news.coverImageAlt"
-          width="1200"
-          height="675"
-          sizes="100vw lg:900px"
-          class="mt-8 aspect-video w-full rounded-card object-cover"
-        />
+        <p class="mt-5 border-l-4 border-sedalp-yellow pl-5 text-lg leading-8 text-body">
+          {{ news.description }}
+        </p>
+
+        <div class="mt-8 overflow-hidden rounded-card">
+          <NewsImageCarousel :images="news.images" variant="modal" />
+        </div>
 
         <div class="mt-8 space-y-5">
-          <p v-for="(paragraph, index) in news.content" :key="index" class="leading-8 text-body">
+          <p
+            v-for="(paragraph, index) in news.content"
+            :key="index"
+            class="leading-8 text-body"
+          >
             {{ paragraph }}
           </p>
+        </div>
+
+        <div v-if="news.videos.length" class="mt-12 border-t border-border-soft pt-10">
+          <NewsVideoList :videos="news.videos" />
         </div>
       </article>
     </AppContainer>
