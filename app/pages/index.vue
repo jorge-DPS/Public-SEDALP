@@ -12,5 +12,7 @@ useSeoMeta({
     <HomeHero />
 
     <HomeInstitutionalPillars />
+
+    <HomeCommunication/>
   </div>
 </template>
