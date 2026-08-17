@@ -5,27 +5,19 @@ export interface NavigationItem {
 
 export const mainNavigation: NavigationItem[] = [
   {
-    label: "Inicio",
-    to: "/",
+    label: 'Inicio',
+    to: '/',
   },
   {
-    label: "Comunicación",
-    to: "/noticias",
+    label: 'Asistencia Técnica',
+    to: '/asistencia-tecnica',
+  },  
+  {
+    label: 'Comunicación',
+    to: '/noticias',
   },
   {
-    label: "Cursos",
-    to: "/#cursos",
-  },
-  {
-    label: "Eventos",
-    to: "/#eventos",
-  },
-  {
-    label: "Normativas",
-    to: "/#normativas",
-  },
-  {
-    label: "SIMRED",
-    to: "/simred",
+    label: 'SIMRED',
+    to: '/#simred',
   },
 ];
