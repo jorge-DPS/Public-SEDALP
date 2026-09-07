@@ -1,66 +1,21 @@
 <script setup lang="ts">
 import type { NormativeDocument } from "~/types/normative";
 
-interface Props {
-  documents: NormativeDocument[];
-}
+const props = defineProps<{ documents: NormativeDocument[] }>();
 
-defineProps<Props>();
-
-const carousel = ref<HTMLElement | null>(null);
-
-const scroll = (direction: "previous" | "next") => {
-  if (!carousel.value) {
-    return;
-  }
-
-  const distance = carousel.value.clientWidth * 0.8;
-
-  carousel.value.scrollBy({
-    left: direction === "next" ? distance : -distance,
-
-    behavior: "smooth",
-  });
-};
+const selectedType = ref("Todos");
+const filters = ["Todos", "Ley", "Normativa", "Guía", "Documento técnico"];
+const filteredDocuments = computed(() => selectedType.value === "Todos" ? props.documents : props.documents.filter((document) => document.type === selectedType.value));
 </script>
 
 <template>
   <div>
-    <!-- Controles -->
-
-    <div class="mb-6 flex justify-end gap-2">
-      <button
-        type="button"
-        class="flex size-11 items-center justify-center rounded-full border border-border-soft bg-white text-sedalp-green transition-all hover:border-sedalp-green hover:bg-sedalp-green hover:text-white"
-        aria-label="Documentos anteriores"
-        @click="scroll('previous')"
-      >
-        ←
-      </button>
-
-      <button
-        type="button"
-        class="flex size-11 items-center justify-center rounded-full border border-border-soft bg-white text-sedalp-green transition-all hover:border-sedalp-green hover:bg-sedalp-green hover:text-white"
-        aria-label="Siguientes documentos"
-        @click="scroll('next')"
-      >
-        →
-      </button>
+    <div class="scrollbar-hidden flex gap-1 overflow-x-auto pb-5 lg:justify-end">
+      <button v-for="filter in filters" :key="filter" type="button" :class="['shrink-0 px-3 py-2 text-[0.67rem] font-medium transition-colors', selectedType === filter ? 'bg-brand-copper text-white' : 'text-brand-navy hover:bg-white']" @click="selectedType = filter">{{ filter === 'Documento técnico' ? 'Técnicos' : filter }}</button>
     </div>
-
-    <!-- Carrusel -->
-
-    <div
-      ref="carousel"
-      class="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
-    >
-      <div
-        v-for="document in documents"
-        :key="document.id"
-        class="w-[86%] shrink-0 snap-start sm:w-[47%] lg:w-[31%]"
-      >
-        <NormativeCard :document="document" />
-      </div>
+    <div class="grid gap-0 border-t border-brand-navy/10 sm:grid-cols-2 lg:grid-cols-4">
+      <NormativeCard v-for="(document, index) in filteredDocuments" :key="document.id" :document="document" :index="index + 1" />
+      <p v-if="filteredDocuments.length === 0" class="col-span-full py-8 text-sm text-body">No hay documentos en esta categoría.</p>
     </div>
   </div>
 </template>

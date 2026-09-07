@@ -1,69 +1,25 @@
-import type { MaybeRefOrGetter } from "vue";
+import type { NewsSummary } from "~/types/news";
 
-import { toValue } from "vue";
-
-import type { NewsItem } from "~/types/news";
-
-export const useNewsModal = (items: MaybeRefOrGetter<readonly NewsItem[]>) => {
+export const useNewsModal = () => {
   const route = useRoute();
   const router = useRouter();
-  const openedNews = ref<NewsItem | null>(null);
 
   const selectedSlug = computed(() => {
     const value = route.query.noticia;
-
-    if (Array.isArray(value)) {
-      return value[0] ?? null;
-    }
-
-    return value ?? null;
+    return (Array.isArray(value) ? value[0] : value) || null;
   });
 
-  const selectedNews = computed(() => {
-    if (openedNews.value) {
-      return openedNews.value;
-    }
-
-    if (!selectedSlug.value) {
-      return null;
-    }
-
-    return (
-      toValue(items).find((item) => item.slug === selectedSlug.value) ?? null
-    );
+  const openNews = (news: NewsSummary) => router.push({
+    path: route.path,
+    hash: route.hash,
+    query: { ...route.query, noticia: news.slug },
   });
 
-  const openNews = async (news: NewsItem) => {
-    openedNews.value = news;
-
-    await router.push({
-      path: route.path,
-
-      query: {
-        ...route.query,
-        noticia: news.slug,
-      },
-    });
-  };
-
-  const closeNews = async () => {
-    openedNews.value = null;
-
-    const query = {
-      ...route.query,
-    };
-
+  const closeNews = () => {
+    const query = { ...route.query };
     delete query.noticia;
-
-    await router.replace({
-      path: route.path,
-      query,
-    });
+    return router.replace({ path: route.path, hash: route.hash, query });
   };
 
-  return {
-    selectedNews,
-    openNews,
-    closeNews,
-  };
+  return { selectedSlug, openNews, closeNews };
 };

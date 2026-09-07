@@ -6,19 +6,20 @@ interface Props {
 }
 
 defineProps<Props>();
+const titleId = useId();
 </script>
 
 <template>
-  <section v-if="videos.length" aria-labelledby="news-videos-title">
+  <section v-if="videos.length" :aria-labelledby="titleId">
     <div class="mb-5 flex items-center gap-3">
       <div
-        class="flex size-10 items-center justify-center rounded-lg bg-red-50 text-red-600"
+        class="flex size-10 items-center justify-center rounded-full bg-brand-cream text-brand-copper-dark"
       >
-        ▶
+        <NewsIcon name="play" class="size-4" />
       </div>
 
       <div>
-        <h3 id="news-videos-title" class="font-bold text-heading">Videos</h3>
+        <h3 :id="titleId" class="font-bold text-heading">Videos</h3>
 
         <p class="mt-0.5 text-xs text-muted">
           Material audiovisual relacionado
@@ -26,8 +27,8 @@ defineProps<Props>();
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-      <article v-for="video in videos" :key="video.id">
+    <div class="grid grid-cols-1 gap-6">
+      <article v-for="video in videos" :key="video.position">
         <div class="aspect-video overflow-hidden rounded-xl bg-black">
           <iframe
             v-if="getYouTubeEmbedUrl(video.youtubeUrl)"

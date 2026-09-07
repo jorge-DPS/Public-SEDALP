@@ -1,76 +1,28 @@
 <script setup lang="ts">
 import { assistanceItems } from "~/data/assistance";
 
-const featuredAssistance = computed(() => assistanceItems.slice(0, 4));
+const featuredImages = [
+  "/images/assistance/assistance-04.webp",
+  "/images/assistance/assistance-11.webp",
+  "/images/assistance/assistance-15.webp",
+];
+
+const featuredAssistance = computed(() => assistanceItems.slice(0, 3).map((item, index) => ({ ...item, image: featuredImages[index] ?? item.image })));
 </script>
 
 <template>
-  <section
-    id="asistencia-tecnica"
-    class="section-spacing scroll-mt-24 bg-white"
-    aria-labelledby="home-assistance-title"
-  >
+  <section id="asistencia-tecnica" class="scroll-mt-24 bg-white py-14 lg:py-16" aria-labelledby="home-assistance-title">
     <AppContainer>
-      <!-- Encabezado -->
-
-      <div
-        class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
-      >
-        <div class="max-w-2xl">
-          <p
-            class="text-xs font-bold uppercase tracking-[0.15em] text-sedalp-green"
-          >
-            Fortalecimiento institucional
-          </p>
-
-          <h2
-            id="home-assistance-title"
-            class="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-heading sm:text-4xl"
-          >
-            Asistencia Técnica
-          </h2>
-
-          <p class="mt-4 text-sm leading-7 text-body sm:text-base">
-            Conoce las acciones y materiales de asistencia técnica desarrollados
-            para fortalecer las capacidades de los gobiernos autónomos del
-            departamento de La Paz.
-          </p>
+      <div class="grid gap-8 lg:grid-cols-[0.82fr_repeat(3,1fr)] lg:gap-5">
+        <div class="pr-4 lg:pr-7">
+          <h2 id="home-assistance-title" class="text-2xl font-bold tracking-[-0.04em] text-heading sm:text-[2rem]">Asistencia Técnica</h2>
+          <span class="mt-4 block h-0.5 w-8 bg-brand-copper" aria-hidden="true" />
+          <p class="mt-6 text-xs leading-6 text-body sm:text-[0.8rem]">Brindamos acompañamiento técnico especializado a gobiernos municipales y regionales en planificación, gestión financiera, institucional y ejecución de proyectos para una gestión autónoma eficiente y transparente.</p>
+          <NuxtLink to="/asistencia-tecnica" class="group mt-7 inline-flex items-center gap-4 text-xs font-semibold text-brand-navy">Ver todos los servicios <span class="text-lg font-light text-brand-navy transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></NuxtLink>
         </div>
-
-        <NuxtLink
-          to="/asistencia-tecnica"
-          class="group inline-flex shrink-0 items-center gap-2 text-sm font-bold text-sedalp-green transition-colors hover:text-sedalp-green-dark"
-        >
-          Ver Asistencia Técnica
-
-          <span
-            class="transition-transform duration-200 group-hover:translate-x-1"
-            aria-hidden="true"
-          >
-            →
-          </span>
-        </NuxtLink>
-      </div>
-
-      <!-- Imágenes destacadas -->
-
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <AssistanceImageCard
-          v-for="item in featuredAssistance"
-          :key="item.id"
-          :item="item"
-          preview
-        />
-      </div>
-
-      <!-- CTA mobile/central -->
-
-      <div class="mt-10 flex justify-center">
-        <BaseButton to="/asistencia-tecnica" variant="outline">
-          Conocer más
-
-          <span aria-hidden="true"> → </span>
-        </BaseButton>
+        <div v-for="item in featuredAssistance" :key="item.id">
+          <AssistanceImageCard :item="item" preview />
+        </div>
       </div>
     </AppContainer>
   </section>

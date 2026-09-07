@@ -12,7 +12,7 @@ useSeoMeta({
     <SimredHero />
 
     <section
-      class="section-spacing-sm bg-surface-soft"
+      class="section-spacing bg-brand-cream"
       aria-labelledby="simred-map-title"
     >
       <AppContainer>
@@ -23,14 +23,14 @@ useSeoMeta({
         >
           <div class="max-w-2xl">
             <p
-              class="text-xs font-bold uppercase tracking-[0.15em] text-sedalp-green"
+              class="section-kicker"
             >
               Información geográfica
             </p>
 
             <h2
               id="simred-map-title"
-              class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-heading sm:text-3xl"
+              class="mt-4 text-3xl font-bold tracking-[-0.045em] text-heading sm:text-4xl"
             >
               Visor territorial
             </h2>
@@ -42,7 +42,7 @@ useSeoMeta({
           </div>
 
           <div class="flex items-center gap-2 text-xs font-semibold text-muted">
-            <span class="size-2 rounded-full bg-sedalp-green" />
+            <span class="size-1.5 rotate-45 bg-brand-copper" />
 
             Departamento de La Paz
           </div>

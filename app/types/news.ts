@@ -1,30 +1,29 @@
+import type { RichTextDocument } from "~/types/richText";
+
 export interface NewsImage {
-  id: number
-  url: string
-  alt: string
-  caption?: string
+  url: string;
+  alt: string;
+  caption: string | null;
 }
 
 export interface NewsVideo {
-  id: number
-  youtubeUrl: string
-  title: string
+  youtubeUrl: string;
+  title: string;
+  position: number;
 }
 
-export interface NewsItem {
-  id: number
-  slug: string
+export interface NewsSummary {
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  excerpt: string;
+  publishedAt: string;
+  coverImage: NewsImage | null;
+}
 
-  title: string
-  subtitle?: string
-
-  excerpt: string
-  description: string
-
-  content: string[]
-
-  publishedAt: string
-
-  images: NewsImage[]
-  videos: NewsVideo[]
+export interface NewsDetail extends Omit<NewsSummary, "coverImage"> {
+  description: string;
+  content: RichTextDocument;
+  images: NewsImage[];
+  videos: NewsVideo[];
 }

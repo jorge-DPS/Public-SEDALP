@@ -14,7 +14,7 @@ export const mainNavigation: NavigationItem[] = [
   },  
   {
     label: 'Comunicación',
-    to: '/noticias',
+    to: '/news',
   },
   {
     label: 'SIMRED',

@@ -1,16 +1,20 @@
 @theme {
-  /* =====================================================
-     IDENTIDAD SEDALP
-  ===================================================== */
+  /* Identidad La Paz — Departamento Maravilloso */
+  --color-brand-copper: #a78a48;
+  --color-brand-copper-dark: #886f38;
+  --color-brand-navy: #1d2532;
+  --color-brand-gray: #6f737a;
+  --color-brand-gray-light: #989898;
+  --color-brand-cream: #f2f0e6;
 
-  --color-sedalp-gray: #706f6e;
-  --color-sedalp-yellow: #efc800;
-  --color-sedalp-red: #b12517;
-  --color-sedalp-green: #067132;
-
-  --color-sedalp-green-light: #0a8840;
-  --color-sedalp-green-dark: #055b29;
-  --color-sedalp-green-darker: #03461f;
+  /* Alias transitorios para componentes institucionales existentes. */
+  --color-sedalp-gray: #6f737a;
+  --color-sedalp-yellow: #a78a48;
+  --color-sedalp-red: #886f38;
+  --color-sedalp-green: #1d2532;
+  --color-sedalp-green-light: #6f737a;
+  --color-sedalp-green-dark: #171e29;
+  --color-sedalp-green-darker: #111722;
 
   /* =====================================================
      SUPERFICIES
@@ -18,24 +22,24 @@
 
   --color-page: #ffffff;
   --color-surface: #ffffff;
-  --color-surface-soft: #f7f9f8;
-  --color-surface-green: #f2f7f4;
+  --color-surface-soft: #f7f6f1;
+  --color-surface-green: #f2f0e6;
 
   /* =====================================================
      TEXTO
   ===================================================== */
 
-  --color-heading: #202522;
-  --color-body: #555d58;
-  --color-muted: #7b827e;
-  --color-border-soft: #e5e9e7;
+  --color-heading: #1d2532;
+  --color-body: #525862;
+  --color-muted: #6f737a;
+  --color-border-soft: #deddd6;
 
   /* =====================================================
      TIPOGRAFÍA
   ===================================================== */
 
   --font-sans:
-    "Montserrat",
+    "Poppins",
     ui-sans-serif,
     system-ui,
     sans-serif;
@@ -44,23 +48,16 @@
      SOMBRAS
   ===================================================== */
 
-  --shadow-soft:
-    0 4px 20px rgb(15 42 28 / 0.06);
-
-  --shadow-card:
-    0 8px 30px rgb(15 42 28 / 0.08);
-
-  --shadow-card-hover:
-    0 18px 45px rgb(15 42 28 / 0.12);
-
-  --shadow-header:
-    0 10px 35px rgb(15 42 28 / 0.08);
+  --shadow-soft: 0 8px 30px rgb(29 37 50 / 0.06);
+  --shadow-card: 0 18px 45px rgb(29 37 50 / 0.09);
+  --shadow-card-hover: 0 24px 60px rgb(29 37 50 / 0.13);
+  --shadow-header: 0 12px 36px rgb(29 37 50 / 0.08);
 
   /* =====================================================
      RADIOS
   ===================================================== */
 
-  --radius-card: 0.875rem;
-  --radius-section: 1.125rem;
-  --radius-button: 0.625rem;
+  --radius-card: 0.75rem;
+  --radius-section: 1rem;
+  --radius-button: 0.375rem;
 }

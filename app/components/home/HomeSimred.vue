@@ -1,94 +1,16 @@
 <template>
-  <section
-    id="simred"
-    class="section-spacing scroll-mt-24 overflow-hidden bg-white"
-    aria-labelledby="home-simred-title"
-  >
+  <section id="simred" class="relative scroll-mt-24 overflow-hidden bg-[#f7f5ee] py-14 lg:py-16" aria-labelledby="home-simred-title">
+    <svg class="pointer-events-none absolute -left-24 inset-y-0 h-full w-[44%] text-brand-copper/[0.08]" viewBox="0 0 560 360" fill="none" aria-hidden="true"><path v-for="i in 8" :key="i" :d="`M-20 ${35 + i * 39}C95 ${-5 + i * 36} 165 ${92 + i * 30} 280 ${42 + i * 36}S455 ${82 + i * 30} 590 ${24 + i * 38}`" stroke="currentColor" /></svg>
     <AppContainer>
-      <div
-        class="relative overflow-hidden rounded-[1.5rem] bg-sedalp-green-darker shadow-card"
-      >
-        <!-- Decoración -->
-
-        <div
-          class="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-sedalp-green/30 blur-3xl"
-          aria-hidden="true"
-        />
-
-        <div
-          class="pointer-events-none absolute -bottom-32 left-1/3 size-80 rounded-full bg-sedalp-yellow/10 blur-3xl"
-          aria-hidden="true"
-        />
-
-        <div class="relative grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr]">
-          <!-- ===============================
-               CONTENIDO
-          ================================ -->
-
-          <div
-            class="flex flex-col justify-center px-7 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-14"
-          >
-            <div class="mb-5 flex items-center gap-2" aria-hidden="true">
-              <span class="h-[3px] w-8 rounded-full bg-sedalp-red" />
-
-              <span class="h-[3px] w-8 rounded-full bg-sedalp-yellow" />
-
-              <span class="h-[3px] w-8 rounded-full bg-white" />
-            </div>
-
-            <p
-              class="text-xs font-bold uppercase tracking-[0.16em] text-white/70"
-            >
-              Información territorial
-            </p>
-
-            <h2
-              id="home-simred-title"
-              class="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-4xl"
-            >
-              SIMRED
-            </h2>
-
-            <p
-              class="mt-2 text-base font-semibold leading-6 text-[#72db9a] sm:text-lg"
-            >
-              Sistema de Información Municipal y Regional
-            </p>
-
-            <p
-              class="mt-5 max-w-xl text-sm leading-7 text-white/75 sm:text-[0.95rem]"
-            >
-              Explora información territorial del departamento de La Paz, sus
-              regiones y municipios mediante herramientas cartográficas y
-              recursos de consulta.
-            </p>
-
-            <div class="mt-8">
-              <NuxtLink
-                to="/simred"
-                class="group inline-flex min-h-12 items-center justify-center gap-3 rounded-button bg-white px-6 text-sm font-bold text-sedalp-green shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-sedalp-yellow hover:text-sedalp-green-darker"
-              >
-                Explorar SIMRED
-
-                <span
-                  class="transition-transform duration-200 group-hover:translate-x-1"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              </NuxtLink>
-            </div>
-          </div>
-
-          <!-- ===============================
-               PREVIEW VISUAL
-          ================================ -->
-
-          <div
-            class="relative min-h-[360px] overflow-hidden border-t border-white/10 bg-[#edf3ef] lg:min-h-[470px] lg:border-l lg:border-t-0"
-          >
-            <SimredMapPreview />
-          </div>
+      <div class="relative grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-12">
+        <div class="lg:pr-5">
+          <h2 id="home-simred-title" class="text-2xl font-bold leading-tight tracking-[-0.04em] text-brand-navy sm:text-[2rem]">SIMRED — Sistema de Información Municipal y Regional</h2>
+          <span class="mt-4 block h-0.5 w-8 bg-brand-copper" aria-hidden="true" />
+          <p class="mt-6 max-w-md text-xs leading-6 text-body sm:text-[0.8rem]">Plataforma digital que integra y visualiza información territorial, socioeconómica y de gestión de los municipios y regiones del departamento de La Paz para la toma de decisiones.</p>
+          <BaseButton to="/simred" variant="dark" class="mt-7 min-h-11 px-5 text-xs">Ingresar a SIMRED <span aria-hidden="true">→</span></BaseButton>
+        </div>
+        <div class="min-h-[390px] overflow-hidden border border-brand-navy/10 bg-white shadow-soft sm:min-h-[430px]">
+          <SimredMapPreview />
         </div>
       </div>
     </AppContainer>

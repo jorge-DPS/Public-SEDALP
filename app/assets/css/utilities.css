@@ -1,5 +1,5 @@
 @utility content-container {
-  width: min(calc(100% - 2rem), 1180px);
+  width: min(calc(100% - 2rem), 1240px);
   margin-inline: auto;
 }
 
@@ -24,8 +24,13 @@
 }
 
 @utility hero-viewport {
-  min-height: max(
-    560px,
-    calc(100svh - 92px)
-  );
+  min-height: clamp(590px, calc(100svh - 84px), 780px);
+}
+
+@utility section-kicker {
+  color: var(--color-brand-copper-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }

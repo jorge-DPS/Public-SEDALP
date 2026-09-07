@@ -22,7 +22,7 @@ export const footerNavigation: FooterLink[] = [
   },
   {
     label: "Comunicación",
-    to: "/noticias",
+    to: "/news",
   },
   {
     label: "SIMRED",

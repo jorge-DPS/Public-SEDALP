@@ -13,17 +13,17 @@ useSeoMeta({
   <div>
     <AssistanceHero />
 
-    <section class="section-spacing bg-surface-soft">
+    <section class="section-spacing bg-white">
       <AppContainer>
         <div class="max-w-2xl">
           <p
-            class="text-xs font-bold uppercase tracking-[0.14em] text-sedalp-green"
+            class="section-kicker"
           >
             Recursos institucionales
           </p>
 
           <h2
-            class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-heading sm:text-3xl"
+            class="mt-4 text-3xl font-bold tracking-[-0.045em] text-heading sm:text-4xl"
           >
             Material de Asistencia Técnica
           </h2>
@@ -36,7 +36,7 @@ useSeoMeta({
 
         <!-- Galería -->
 
-        <div class="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3">
+        <div class="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
           <div
             v-for="item in assistanceItems"
             :key="item.id"

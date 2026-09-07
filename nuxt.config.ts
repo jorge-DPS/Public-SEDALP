@@ -1,8 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
 
+const imageDomains = (
+  process.env.NUXT_IMAGE_DOMAINS ?? "127.0.0.1,localhost"
+)
+  .split(",")
+  .map((domain) => domain.trim())
+  .filter(Boolean);
+
 export default defineNuxtConfig({
   modules: ["@nuxt/fonts", "@nuxt/image"],
+
+  runtimeConfig: {
+    public: {
+      apiBase: "http://127.0.0.1:8000/api",
+    },
+  },
+
 
   css: ["~/assets/css/main.css"],
 
@@ -20,7 +34,7 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       {
-        name: "Montserrat",
+        name: "Poppins",
         provider: "google",
         weights: [400, 500, 600, 700, 800],
       },
@@ -28,6 +42,7 @@ export default defineNuxtConfig({
   },
 
   image: {
+    domains: imageDomains,
     quality: 85,
     format: ["webp"],
   },
@@ -43,7 +58,7 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "theme-color",
-          content: "#067132",
+          content: "#1D2532",
         },
       ],
     },

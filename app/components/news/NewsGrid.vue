@@ -1,24 +1,12 @@
 <script setup lang="ts">
-import type { NewsItem } from "~/types/news";
+import type { NewsSummary } from "~/types/news";
 
-interface Props {
-  items: NewsItem[];
-}
-
-defineProps<Props>();
-
-const emit = defineEmits<{
-  open: [news: NewsItem];
-}>();
+defineProps<{ items: NewsSummary[] }>();
+const emit = defineEmits<{ open: [news: NewsSummary] }>();
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-    <NewsCard
-      v-for="news in items"
-      :key="news.id"
-      :news="news"
-      @open="emit('open', $event)"
-    />
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <NewsArchiveCard v-for="news in items" :key="news.slug" :news="news" @open="emit('open', $event)" />
   </div>
 </template>

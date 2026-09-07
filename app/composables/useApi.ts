@@ -1,11 +1,14 @@
 export const useApi = createUseFetch((options) => {
-  const config = useRuntimeConfig()
+  const config = useRuntimeConfig();
 
   return {
-    baseURL: config.public.apiBase,
-    headers: {
-      Accept: 'application/json',
-    },
     ...options,
-  }
-})
+    baseURL: options.baseURL ?? config.public.apiBase,
+    timeout: options.timeout ?? 15000,
+    headers: () => {
+      const headers = new Headers(toValue(options.headers));
+      headers.set("Accept", "application/json");
+      return headers;
+    },
+  };
+});

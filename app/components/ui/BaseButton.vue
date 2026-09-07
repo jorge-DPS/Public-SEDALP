@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   to?: string
-  variant?: 'primary' | 'outline'
+  variant?: 'primary' | 'outline' | 'light' | 'dark'
 }
 
 const props = withDefaults(
@@ -18,9 +18,9 @@ const buttonClasses = computed(() => {
     'items-center',
     'justify-center',
     'gap-2',
+    'min-h-12',
     'rounded-button',
-    'px-5',
-    'py-3',
+    'px-6',
     'text-sm',
     'font-semibold',
     'transition-all',
@@ -29,20 +29,34 @@ const buttonClasses = computed(() => {
 
   const variants = {
     primary: [
-      'bg-sedalp-green',
+      'bg-brand-copper',
       'text-white',
-      'shadow-soft',
-      'hover:-translate-y-0.5',
-      'hover:bg-sedalp-green-dark',
-      'hover:shadow-card',
+      'hover:bg-brand-copper-dark',
     ],
 
     outline: [
       'border',
-      'border-sedalp-green',
-      'text-sedalp-green',
-      'hover:bg-sedalp-green',
+      'border-brand-navy/25',
+      'text-brand-navy',
+      'hover:border-brand-navy',
+      'hover:bg-brand-navy',
       'hover:text-white',
+    ],
+
+    light: [
+      'border',
+      'border-white/30',
+      'bg-white',
+      'text-brand-navy',
+      'hover:border-brand-copper',
+      'hover:bg-brand-copper',
+      'hover:text-white',
+    ],
+
+    dark: [
+      'bg-brand-navy',
+      'text-white',
+      'hover:bg-brand-copper',
     ],
   }
 

@@ -6,54 +6,28 @@ interface Props {
   preview?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
-  preview: false,
-});
+withDefaults(defineProps<Props>(), { preview: false });
 </script>
 
 <template>
-  <figure
-    class="group break-inside-avoid overflow-hidden rounded-card border border-border-soft bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
-  >
-    <div
-      :class="[
-        'relative overflow-hidden bg-surface-soft',
-
-        preview ? 'aspect-[4/5]' : '',
-      ]"
-    >
+  <figure class="group break-inside-avoid overflow-hidden bg-white">
+    <div :class="['relative overflow-hidden bg-surface-soft', preview ? 'aspect-[1.08/1]' : '']">
       <NuxtImg
         :src="item.image"
         :alt="item.alt"
         width="800"
-        height="1000"
-        sizes="
-          100vw
-          sm:50vw
-          lg:25vw
-        "
-        quality="85"
+        height="740"
+        sizes="100vw sm:50vw lg:33vw"
+        quality="84"
         format="webp"
         loading="lazy"
-        :class="[
-          'w-full transition-transform duration-700 ease-out',
-          'group-hover:scale-[1.025]',
-
-          preview ? 'h-full object-cover' : 'h-auto object-contain',
-        ]"
+        :class="['w-full transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.025]', preview ? 'h-full object-cover' : 'h-auto object-contain']"
       />
-
-      <!-- Oscurecimiento casi imperceptible -->
-
-      <div
-        class="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/[0.03]"
-      />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-navy/20 via-transparent to-transparent" aria-hidden="true" />
     </div>
-
-    <figcaption class="px-5 py-4">
-      <p class="text-sm font-semibold text-heading">
-        {{ item.title }}
-      </p>
+    <figcaption class="flex items-start justify-between gap-5 py-3.5">
+      <p class="text-xs font-semibold leading-5 text-heading">{{ item.title }}</p>
+      <span class="shrink-0 text-lg font-light text-brand-copper" aria-hidden="true">→</span>
     </figcaption>
   </figure>
 </template>
