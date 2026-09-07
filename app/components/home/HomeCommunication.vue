@@ -14,7 +14,7 @@ const { selectedSlug, openNews, closeNews } = useNewsModal();
             Historias, actividades y avances que conectan a nuestra institución con el desarrollo de La Paz.
           </p>
         </div>
-        <NuxtLink to="/noticias"
+        <NuxtLink to="/news"
           class="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full border border-brand-navy/15 px-5 py-3 text-xs font-semibold text-heading transition-colors hover:border-brand-copper hover:bg-brand-cream/40">
           Todas las noticias
           <NewsIcon name="arrow" class="size-4 transition-transform motion-safe:group-hover:translate-x-1" />
