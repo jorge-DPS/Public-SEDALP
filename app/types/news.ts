@@ -22,7 +22,6 @@ export interface NewsSummary {
 }
 
 export interface NewsDetail extends Omit<NewsSummary, "coverImage"> {
-  description: string;
   content: RichTextDocument;
   images: NewsImage[];
   videos: NewsVideo[];

@@ -10,7 +10,7 @@ let previousOverflow = '';
 let previousFocus: HTMLElement | null = null;
 const readingMinutes = computed(() => {
   if (!news.value) return 1;
-  const text = `${news.value.description} ${getRichTextContent(news.value.content)}`;
+  const text = getRichTextContent(news.value.content);
   return Math.max(1, Math.ceil(text.trim().split(/\s+/).length / 200));
 });
 const close = () => emit('close');
@@ -62,8 +62,7 @@ onBeforeUnmount(() => {
           <h2 :id="titleId" class="mt-5 text-2xl font-semibold leading-[1.25] tracking-[-0.035em] text-heading sm:text-[1.9rem]">{{ news.title }}</h2>
           <p v-if="news.subtitle" class="mt-5 text-sm font-medium leading-7 text-brand-copper-dark">{{ news.subtitle }}</p>
           <div class="my-7 h-px w-14 bg-brand-copper/60" aria-hidden="true" />
-          <p class="text-sm font-medium leading-7 text-brand-navy">{{ news.description }}</p>
-          <RichText :document="news.content" class="mt-5 text-sm leading-7 text-body" />
+          <RichText :document="news.content" class="text-sm leading-7 text-body" />
           <div v-if="news.videos.length" class="mt-9 border-t border-brand-navy/10 pt-7"><NewsVideoList :videos="news.videos" /></div>
           <NuxtLink :to="`/news/${news.slug}`" class="mt-7 inline-block text-sm font-semibold text-brand-copper-dark">Abrir página completa <span aria-hidden="true">→</span></NuxtLink>
           <div class="mt-8 flex items-center gap-3 border-t border-brand-navy/10 pt-6 text-xs text-muted"><span class="size-2 rounded-full bg-brand-copper" />Servicio Departamental de Autonomías de La Paz</div>
