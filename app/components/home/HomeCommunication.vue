@@ -7,17 +7,22 @@ const { selectedSlug, openNews, closeNews } = useNewsModal();
 <template>
   <section id="comunicacion" class="scroll-mt-24 bg-white py-16 lg:py-20" aria-labelledby="communication-title">
     <AppContainer>
-      <div class="mb-9 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+      <div class="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <div class="max-w-2xl">
-          <h2 id="communication-title" class="text-3xl font-bold tracking-[-0.04em] text-heading sm:text-4xl">Comunicación</h2>
-          <p class="mt-3 max-w-xl text-sm leading-7 text-body">
-            Historias, actividades y avances que conectan a nuestra institución con el desarrollo de La Paz.
+          <span class="section-kicker">Actualidad Departamental</span>
+          <h2 id="communication-title" class="mt-2 text-2xl font-bold tracking-tight text-heading sm:text-3xl lg:text-[2.25rem]">
+            Comunicación
+          </h2>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-body">
+            Noticias, actividades y avances institucionales que conectan a SEDALP con los municipios y regiones del departamento de La Paz.
           </p>
         </div>
-        <NuxtLink to="/news"
-          class="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full border border-brand-navy/15 px-5 py-3 text-xs font-semibold text-heading transition-colors hover:border-brand-copper hover:bg-brand-cream/40">
-          Todas las noticias
-          <NewsIcon name="arrow" class="size-4 transition-transform motion-safe:group-hover:translate-x-1" />
+        <NuxtLink
+          to="/news"
+          class="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full border border-brand-navy/15 bg-white px-5 py-2.5 text-xs font-semibold text-heading shadow-sm transition-all duration-200 hover:border-brand-copper hover:bg-brand-cream/40"
+        >
+          <span>Todas las noticias</span>
+          <NewsIcon name="arrow" class="size-4 text-brand-copper transition-transform motion-safe:group-hover:translate-x-1" />
         </NuxtLink>
       </div>
       <div v-if="status === 'pending'" role="status" class="grid gap-5 lg:grid-cols-[1.2fr_1fr] lg:gap-7">
